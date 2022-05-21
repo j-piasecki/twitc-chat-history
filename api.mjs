@@ -9,6 +9,7 @@ import {
     getUserName,
     getMessagesInChannel,
     getMessagesInChannelForUser,
+    getUserChannels,
 } from "./db.mjs";
 
 const MAX_INT = 2147483647;
@@ -139,6 +140,22 @@ export function setupAPI() {
             }
 
             res.status(200).send(JSON.stringify(response)).end();
+        }).catch(() => {
+            res.status(404).end();
+        });
+    });
+
+    app.get("/userChannels/:user", (req, res) => {
+        const user = figureOutUser(req.params.user);
+
+        getUserChannels(user).then(({ rows }) => {
+            if (rows.length > 0) {
+                res.status(200).send(JSON.stringify({
+                    channels: rows
+                })).end();
+            } else {
+                res.status(404).end();
+            }
         }).catch(() => {
             res.status(404).end();
         });
