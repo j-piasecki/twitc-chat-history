@@ -5,6 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-color: #222;
+  color: #ccc;
 }
 
 .home {
@@ -19,7 +22,7 @@ body {
 .home .container {
   width: 350px;
   margin-bottom: 100px;
-  border: solid 3px purple;
+  border: solid 3px #8600d4;
   border-radius: 15px;
   padding: 1vh 1vw 1vh 1vw;
 
@@ -28,6 +31,10 @@ body {
   align-items: center;
   justify-content: center;
   gap: 1vw;
+}
+
+.home h2 {
+  margin: 20px 0 0 0;
 }
 
 .wrapper {
@@ -104,6 +111,27 @@ body {
   display: inline-block;
   font-weight: bold;
   margin-left: 5px;
+}
+
+.button {
+  background-color: #8600d4;
+  padding: 5px 15px 5px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.25s;
+  box-shadow: 0 0 15px 4px rgba(134, 0, 212, 0.1);
+}
+
+.button:hover {
+  background-color: #6d02ab;
+}
+
+input[type=text] {
+  padding: 10px;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 0 15px 4px rgba(255, 255, 255, 0.1);
+  background-color: #ddd;
 }
 
 @media screen and (max-width: 500px) {

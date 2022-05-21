@@ -16,9 +16,8 @@ export default function Home() {
           value={channelName}
           onChange={({ target: { value } }) => { setChannelName(value); }}
           onKeyUp={({ key }) => { if (key === 'Enter') { navigate(`/channel/${channelName.toLowerCase()}`); } }} />
-        <input
-          type="button"
-          value="OK"
+        <Button
+          text="OK"
           onClick={() => { navigate(`/channel/${channelName.toLowerCase()}`); }} />
       </div>
       <div className="container">
@@ -29,11 +28,18 @@ export default function Home() {
           value={userName}
           onChange={({ target: { value } }) => { setUserName(value); }}
           onKeyUp={({ key }) => { if (key === 'Enter') { navigate(`/user/${userName.toLowerCase()}`); } }} />
-        <input
-          type="button"
-          value="OK"
+        <Button
+          text="OK"
           onClick={() => { navigate(`/user/${userName.toLowerCase()}`); }} />
       </div>
     </div>
   );
+}
+
+function Button({ text, onClick }) {
+  return (
+    <div className="button" onClick={onClick}>
+      {text}
+    </div>
+  )
 }
