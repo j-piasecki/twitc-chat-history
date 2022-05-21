@@ -24,7 +24,7 @@ export default function Channel() {
       })
       .catch((e) => {
         if (e === 404) {
-          navigate(`../notfound/channel/${params.channelName}`, { replace: true });
+          navigate(`/error}`, { replace: true });
         }
       })
       .then((r) => {

@@ -1,10 +1,10 @@
 
 import './style.css';
 
-export default function Channel() {
+export default function Error() {
   return (
-    <div>
-      Error
+    <div className='wrapper'>
+      Wystąpił błąd
     </div>
   )
 }
