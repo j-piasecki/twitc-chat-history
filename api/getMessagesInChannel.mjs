@@ -21,7 +21,8 @@ export function getMessagesInChannel(req, res) {
     }
 
     getMessagesInChannelDB(channel, amount + 1, lastMessage).then(({ rows }) => {
-        for (let i = 0; i < rows.length - 1; i++) {
+        const messages = rows.length - 1 === amount ? amount : rows.length;
+        for (let i = 0; i < messages; i++) {
             response.messages.push(rows[i]);
         }
 
