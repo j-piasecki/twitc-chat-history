@@ -111,3 +111,17 @@ export async function getMessagesInChannel(channel, amount, lastMessage) {
         ) AND id<$2 ORDER BY timestamp DESC LIMIT $3
     `, [channel, lastMessage, amount])
 }
+
+export async function getMessagesInChannelForUser(channel, user, amount, lastMessage) {
+    const channelIdCheck = (typeof channel === 'number') ?
+        `$1` :
+        `(SELECT id FROM channel_names WHERE name=$1)`;
+
+    const userIdCheck = (typeof user === 'number') ?
+        `$2` :
+        `(SELECT id FROM user_names WHERE name=$2)`;
+
+    return await pool.query(`
+        SELECT * from messages WHERE channel_id=${channelIdCheck} AND user_id=${userIdCheck} AND id<$3 ORDER BY timestamp DESC LIMIT $4
+    `, [channel, user, lastMessage, amount])
+}
