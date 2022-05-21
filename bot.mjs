@@ -3,7 +3,7 @@ import fs from "fs";
 
 const listenOn = JSON.parse(fs.readFileSync("channels.json", "utf-8"));
 
-function makeConfig(token, channels) {
+function makeConfig(channels) {
     return {
         connection: {
             reconnect: true,
@@ -14,8 +14,8 @@ function makeConfig(token, channels) {
 
 let messages = 0;
 
-export function connect(messageCallback, token) {
-    const client = new tmi.client(makeConfig(token === undefined ? defaultToken : token, listenOn.channels));
+export function connect(messageCallback) {
+    const client = new tmi.client(makeConfig(listenOn.channels));
 
     client.on("message", (channel, user, msg, self) => {
         messageCallback(channel, user, msg);
