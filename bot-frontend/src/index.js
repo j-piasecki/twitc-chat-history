@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './home/home';
-import Channel from './channel/channel';
-import User from './user/user';
+import Home from './home';
+import Channel from './channel';
+import ChannelUser from './channel_user';
+import User from './user';
+import Error from './error';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,8 +16,9 @@ root.render(
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/channel/:channelName" element={<Channel />} />
-        <Route path="/channel/:channelName/:userName" element={<Channel />} />
+        <Route path="/channel/:channelName/:userName" element={<ChannelUser />} />
         <Route path="/user/:userName" element={<User />} />
+        <Route path="/error" element={<Error />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

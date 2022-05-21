@@ -1,0 +1,27 @@
+.message {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    cursor: default;
+}
+
+.message:hover {
+    background-color: #99999940;
+}
+
+.message .timestamp {
+    color: gray;
+    font-size: 0.65em;
+    margin-right: 10px;
+}
+
+.message .content {
+    flex: 1;
+}
+
+.message .content .username {
+    display: inline-block;
+    margin-right: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
