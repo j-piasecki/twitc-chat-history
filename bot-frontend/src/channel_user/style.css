@@ -11,4 +11,12 @@
     font-size: 1.5em;
     margin-top: 10px;
     margin-bottom: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.header .link {
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-block;
 }

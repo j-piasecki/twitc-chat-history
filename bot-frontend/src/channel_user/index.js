@@ -48,7 +48,13 @@ export default function Channel() {
   return (
     <div className='wrapper'>
       <div className='header'>
-        {params.userName} na czacie {params.channelName}
+        <div className='link' onClick={() => { navigate(`/user/${params.userName}`, { replace: true }) }}>
+          {params.userName}
+        </div>
+        na czacie
+        <div className='link' onClick={() => { navigate('./../', { replace: true }) }}>
+          {params.channelName}
+        </div>
       </div>
       <div className='chat' onScroll={(e) => {
         if (e.target.scrollTop + e.target.offsetHeight + 500 > e.target.scrollHeight) {
