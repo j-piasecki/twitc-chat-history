@@ -100,6 +100,10 @@ export async function getUserId(userName) {
     return await pool.query(`SELECT id, name FROM user_names WHERE name=$1`, [userName]);
 }
 
+export async function getUserName(id) {
+    return await pool.query(`SELECT id, name FROM user_names WHERE id=$1`, [id]);
+}
+
 export async function getMessagesInChannel(channel, amount, lastMessage) {
     if (typeof channel === 'number') {
         return await pool.query(`SELECT * from messages WHERE channel_id=$1 AND id<$2 ORDER BY timestamp DESC LIMIT $3`, [channel, lastMessage, amount])

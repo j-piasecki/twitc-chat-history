@@ -6,6 +6,7 @@ import https from "https";
 import {
     getChannelId,
     getUserId,
+    getUserName,
     getMessagesInChannel,
     getMessagesInChannelForUser,
 } from "./db.mjs";
@@ -67,6 +68,21 @@ export function setupAPI() {
 
     app.get("/userId/:userName", (req, res) => {
         getUserId(req.params.userName).then(({ rows }) => {
+            if (rows.length > 0) {
+                res.status(200).send(JSON.stringify({
+                    id: rows[0].id,
+                    name: rows[0].name,
+                })).end();
+            } else {
+                res.status(404).end();
+            }
+        }).catch(() => {
+            res.status(404).end();
+        });
+    });
+
+    app.get("/userName/:userId", (req, res) => {
+        getUserName(req.params.userId).then(({ rows }) => {
             if (rows.length > 0) {
                 res.status(200).send(JSON.stringify({
                     id: rows[0].id,
