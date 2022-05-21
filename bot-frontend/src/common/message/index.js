@@ -1,5 +1,3 @@
-import './style.css';
-
 export default function Message({ msg, onNameClick }) {
     return (
         <div className='message'>

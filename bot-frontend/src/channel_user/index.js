@@ -3,8 +3,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Message from '../common/message';
 import config from '../config.json';
-import './style.css';
-import '../common/chat.css';
 
 export default function Channel() {
   const params = useParams();

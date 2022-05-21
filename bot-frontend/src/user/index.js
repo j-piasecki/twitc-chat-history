@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import config from '../config.json';
-import './style.css';
 
 export default function Channel() {
   const params = useParams();
@@ -46,7 +45,7 @@ function Entry({ entry, user }) {
   const channel = entry.name.substring(1);
 
   return (
-    <div className='entry' onClick={() => { navigate(`/channel/${channel}/${user}`) }}>
+    <div className='channel-entry' onClick={() => { navigate(`/channel/${channel}/${user}`) }}>
       {entry.messages} wiadomości na czacie
       <div className='channel'>
         {channel}
