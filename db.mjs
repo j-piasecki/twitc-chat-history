@@ -1,13 +1,8 @@
 import pg from 'pg';
-const { Pool } = pg;
+import fs from 'fs';
 
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'chat_logs',
-    password: 'zaq1@WSX',
-    port: 5432,
-})
+const config = JSON.parse(fs.readFileSync("db_config.json", "utf-8"));
+const pool = new pg.Pool(config);
 
 export async function initDB() {
     await pool.query(`
