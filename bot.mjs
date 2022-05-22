@@ -26,7 +26,7 @@ export function connect(messageCallback) {
         console.log(`Connected to ${addr}:${port}`);
 
         setInterval(() => {
-            console.log(`Status: ${client.readyState()}, listening on: ${client.getChannels().join(", ")}, ${messages / 5} m/s`);
+            console.log(`Status: ${client.readyState()}, listening on: ${client.getChannels().length} channels, ${messages / 5} m/s`);
             messages = 0;
         }, 5000);
     });
