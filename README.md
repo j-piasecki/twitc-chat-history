@@ -31,8 +31,8 @@ Konfiguracja API jest wczytywana z pliku `config.json`, np:
   },
   "https": {
     "port": 443,
-    "key": "certs/key.key",
-    "cert": "certs/crt.crt"
+    "key": "/home/bot/certs/key.key",
+    "cert": "/home/bot/certs/crt.crt"
   }
 }
 ```

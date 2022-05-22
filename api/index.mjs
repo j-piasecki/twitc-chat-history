@@ -33,8 +33,8 @@ export function setupAPI(config) {
     }
 
     if (config.https) {
-        const key = fs.readFileSync(`../${config.https.key}`, "utf-8");
-        const crt = fs.readFileSync(`../${config.https.cert}`, "utf-8");
+        const key = fs.readFileSync(config.https.key, "utf-8");
+        const crt = fs.readFileSync(config.https.cert, "utf-8");
         const credentials = { key: key, cert: crt };
         const httpsServer = https.createServer(credentials, app);
         httpsServer.listen(config.https.port);
