@@ -22,6 +22,21 @@ Kanały na których będzie nasłuchiwał bot są konfigurowalne plikiem `channe
 }
 ```
 
+Konfiguracja API jest wczytywana z pliku `config.json`, np:
+
+```json
+{
+  "http": {
+    "port": 80
+  },
+  "https": {
+    "port": 443,
+    "key": "certs/key.key",
+    "cert": "certs/crt.crt"
+  }
+}
+```
+
 Do uruchomienia interfejsu w React należy dodać plik config.json w katalogu `bot-frontend/src`, zawierającego URL do API:
 
 ```json

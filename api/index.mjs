@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import http from "http";
 import https from "https";
+import fs from "fs";
 
 import { getChannelId } from './getChannelId.mjs';
 import { getMessagesInChannel } from './getMessagesInChannel.mjs';
@@ -10,14 +11,10 @@ import { getUserChannels } from './getUserChannels.mjs';
 import { getUserId } from './getUserId.mjs';
 import { getUserName } from './getUserName.mjs';
 
-//const key = fs.readFileSync("certs/kew.key", "utf-8");
-//const crt = fs.readFileSync("certs/crt.crt", "utf-8");
-//const credentials = { key: key, cert: crt };
-
 const app = express();
 app.use(cors());
 
-export function setupAPI() {
+export function setupAPI(config) {
     app.get("/channelId/:channelName", getChannelId);
 
     app.get("/userId/:userName", getUserId);
@@ -30,8 +27,16 @@ export function setupAPI() {
 
     app.get("/userChannels/:user", getUserChannels);
 
-    let httpServer = http.createServer(app);
-    //let httpsServer = https.createServer(credentials, app);
-    httpServer.listen(8080);
-    //httpsServer.listen(443);
+    if (config.http) {
+        const httpServer = http.createServer(app);
+        httpServer.listen(config.http.port);
+    }
+
+    if (config.https) {
+        const key = fs.readFileSync(`../${config.https.key}`, "utf-8");
+        const crt = fs.readFileSync(`../${config.https.cert}`, "utf-8");
+        const credentials = { key: key, cert: crt };
+        const httpsServer = https.createServer(credentials, app);
+        httpsServer.listen(config.https.port);
+    }
 }
