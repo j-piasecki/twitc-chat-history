@@ -108,10 +108,10 @@ export async function initDB() {
         BEGIN
             INSERT INTO channel_names (id, name)
                 VALUES (v_channel_id, v_channel_name)
-                ON CONFLICT (name) DO UPDATE SET name = EXCLUDED.name;
+                ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;
             INSERT INTO user_names (id, name)
                 VALUES (v_user_id, v_user_name)
-                ON CONFLICT (name) DO UPDATE SET name = EXCLUDED.name;
+                ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;
             INSERT INTO user_channels (user_id, channel_id, count)
                 VALUES (v_user_id, v_channel_id, 1)
                 ON CONFLICT (user_id, channel_id) DO UPDATE SET count=user_channels.count + 1;
