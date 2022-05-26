@@ -92,21 +92,38 @@ export async function initDB() {
             name
         );
     `);
+
+    await pool.query(`
+        CREATE OR REPLACE FUNCTION save_message(
+            v_msg VARCHAR(500),
+            v_timestamp BIGINT,
+            v_channel_id INT,
+            v_channel_name VARCHAR(50),
+            v_user_id INT,
+            v_user_name VARCHAR(50)
+        )
+        RETURNS void
+        LANGUAGE plpgsql
+        AS $$
+        BEGIN
+            INSERT INTO channel_names (id, name)
+                VALUES (v_channel_id, v_channel_name)
+                ON CONFLICT (name) DO UPDATE SET name = EXCLUDED.name;
+            INSERT INTO user_names (id, name)
+                VALUES (v_user_id, v_user_name)
+                ON CONFLICT (name) DO UPDATE SET name = EXCLUDED.name;
+            INSERT INTO user_channels (user_id, channel_id, count)
+                VALUES (v_user_id, v_channel_id, 1)
+                ON CONFLICT (user_id, channel_id) DO UPDATE SET count=user_channels.count + 1;
+            INSERT INTO messages (message, timestamp, channel_id, channel_name, user_id, user_name)
+                VALUES (v_msg, v_timestamp, v_channel_id, v_channel_name, v_user_id, v_user_name);
+        END; $$;
+    `);
 }
 
 export async function saveMessage(message, channelId, channelName, userId, userName) {
-    await Promise.all([
-        pool.query(`INSERT INTO channel_names (id, name) VALUES ($1, $2) ON CONFLICT (name) DO UPDATE SET name = EXCLUDED.name`, [channelId, channelName]),
-        pool.query(`INSERT INTO user_names (id, name) VALUES ($1, $2) ON CONFLICT (name) DO UPDATE SET name = EXCLUDED.name`, [userId, userName]),
-    ]);
-
     pool.query(`
-        INSERT INTO user_channels (user_id, channel_id, count) VALUES ($1, $2, 1) ON CONFLICT (user_id, channel_id) DO UPDATE SET count=user_channels.count + 1
-    `, [userId, channelId]);
-
-    pool.query(`
-        INSERT INTO messages (message, timestamp, channel_id, channel_name, user_id, user_name)
-        VALUES ($1, $2, $3, $4, $5, $6)
+        SELECT save_message($1, $2, $3, $4, $5, $6);
     `, [message, Date.now(), channelId, channelName, userId, userName]);
 }
 
